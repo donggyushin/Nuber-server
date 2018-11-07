@@ -1,0 +1,8 @@
+{
+  "name": "Nuber-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/donggyushin/Nuber-server.git",
+  "author": "rontend",
+  "license": "MIT"
+}

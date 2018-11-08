@@ -1,3 +1,9 @@
+
+type Greeting {
+    error: Boolean!
+    text: String!
+}
+
 type Query {
-    sayHello: String!
+    sayHello: Greeting!
 }

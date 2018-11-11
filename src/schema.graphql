@@ -5,8 +5,37 @@ type Greeting {
 
 type Query {
   sayHello(name: String!): Greeting!
+  place: Place
+  ride: Ride
   user: User
   verification: Verification!
+}
+
+type Place {
+  id: Int!
+  name: String!
+  lat: Float!
+  lng: Float!
+  address: String!
+  isFavorite: Boolean!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Ride {
+  id: Int!
+  status: String!
+  pickUpAddress: String!
+  pickUpLat: Float!
+  pickUpLng: Float!
+  dropOffAddress: String!
+  dropOffLat: Float!
+  dropOffLng: Float!
+  price: Float!
+  duration: String!
+  distance: String!
+  createdAt: String!
+  updatedAt: String
 }
 
 type User {

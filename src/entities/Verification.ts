@@ -1,4 +1,5 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { VerificationTarget } from "src/types/types";
 
 @Entity()
 class Verification extends BaseEntity {
@@ -6,7 +7,7 @@ class Verification extends BaseEntity {
     id:number;
 
     @Column({type:"text"})    
-    target: string;
+    target: VerificationTarget;
     @Column({type:"text"})
     payload: string;
     @Column({type:"text"})

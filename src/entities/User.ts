@@ -62,6 +62,11 @@ class User extends BaseEntity {
     return bcrypt.hash(password, BCRYPT_ROUNDS);
   }
 
+  
+  public comparePassword(password:string) : Promise<boolean> {
+    return bcrypt.compare(password, this.password);
+  }
+
   //새로운 object를 만들기 이전에 불려지는 메소드
   //object를 업데이트하기전에 불려지는 메소드
   //간단히 lifecircle 메소드라고 생각하면 됨. 
@@ -76,6 +81,8 @@ class User extends BaseEntity {
       this.password = hashedPassword;
     }
   }
+
+  
 }
 
 export default User;

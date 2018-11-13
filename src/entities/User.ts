@@ -67,6 +67,10 @@ class User extends BaseEntity {
   @OneToMany(type => Ride, ride => ride.driver)
   ridesAsDriver: Ride[]
 
+  @Column({type:"text", nullable:true})
+  fbId: string;
+
+
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }

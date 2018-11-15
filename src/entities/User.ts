@@ -25,18 +25,18 @@ class User extends BaseEntity {
   lastName: string;
 
   @Column({ type: "int", nullable:true })
-  age: number;
+  age: number | null;
 
   @Column({ type: "text", nullable:true })
   password: string;
   @Column({ type: "text", nullable:true })
-  phoneNumber: string;
+  phoneNumber: string | null;
 
   @Column({ type: "boolean", default: false })
   verifiedPhoneNumber: boolean;
 
-  @Column({ type: "text" })
-  profilePhoto: string;
+  @Column({ type: "text", nullable:true })
+  profilePhoto: string | null;
 
   @Column({ type: "boolean", default: false })
   isDriving: boolean;

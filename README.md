@@ -13,6 +13,12 @@ Server for the Nuber
 -  Sign up with Email
 
 
+### Authentication
+
+- Generate JWT
+- Verify JWT
+
+
 ### Private Resolvers:
 -  Verify Email
 -  Get My Profile

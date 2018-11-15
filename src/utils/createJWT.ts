@@ -1,11 +1,8 @@
 import jwt from "jsonwebtoken";
-import SECRET from "../secretkey";
 
 
 const createJWT =  (id:number) => {
-    const token =  jwt.sign({
-        id
-    }, SECRET);
+    const token = jwt.sign({ id }, process.env.JWT_SECRETKEY || "");
     return token;
 }
 

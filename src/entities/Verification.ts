@@ -10,7 +10,7 @@ class Verification extends BaseEntity {
     @Column({type:"text"})    
     target: VerificationTarget;
     @Column({type:"text"})
-    payload: string;
+    payload: string | null;
     @Column({type:"text"})
     key: string;
 

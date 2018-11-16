@@ -24,6 +24,7 @@ const resolvers: Resolvers = {
                 }
             }else {
                 verification.verified = true;
+                verification.save();
             }
         }catch(error) {
             return {
@@ -48,7 +49,7 @@ const resolvers: Resolvers = {
                 }
             }else {
                 return {
-                    ok:false,
+                    ok:true,
                     error:null,
                     token:null
                 }

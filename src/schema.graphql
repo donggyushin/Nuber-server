@@ -22,10 +22,7 @@ type Greeting {
 
 type Query {
   sayHello(name: String!): Greeting!
-  place: Place
-  ride: Ride
-  user: User
-  verification: Verification!
+  GetMyProfile: GetMyProfileResponse!
 }
 
 type Place {
@@ -87,6 +84,12 @@ type FacebookConnectResponse {
   ok: Boolean!
   error: String
   token: String
+}
+
+type GetMyProfileResponse {
+  ok: Boolean!
+  error: String
+  user: User
 }
 
 type User {

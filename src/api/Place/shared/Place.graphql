@@ -9,6 +9,3 @@ type Place {
     updatedAt: String
 }
 
-type Query{
-    place: Place
-}

@@ -20,7 +20,15 @@ const resolvers: Resolvers = {
               target:"PHONE"
             }).save();
             //to do : send SMS
-            await sendVerification(newVerification.payload, newVerification.key);
+            if(newVerification.payload){
+                await sendVerification(newVerification.payload, newVerification.key);
+            }else {
+                return {
+                    ok:false,
+                    error:"Sorry, please try again."
+                }
+            }
+            
 
             return {
                 ok:true,

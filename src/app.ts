@@ -10,7 +10,12 @@ class App{
     public app:GraphQLServer;
     constructor(){
         this.app = new GraphQLServer({
-            schema
+            schema,
+            context: (req) => {
+                return {
+                    req: req.request
+                }
+            }
         })
         this.middlewares();
     }
@@ -25,7 +30,11 @@ class App{
         const token = req.get("X-JWT");
         if(token) {
             const user = await decodeJWT(token);
-            console.log(user);
+            if(user){
+                req.user = user;
+            }else {
+                req.user = undefined;
+            }
         }
         next();
     }

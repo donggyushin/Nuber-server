@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import Chat from "./Chat";
 import Message from "./Message";
 import Ride from "./Ride";
+import Place from "./Place";
 
 //암호화 해줄 횟수
 const BCRYPT_ROUNDS = 10;
@@ -64,6 +65,9 @@ class User extends BaseEntity {
 
   @OneToMany(type => Ride, ride => ride.driver)
   ridesAsDriver: Ride[]
+
+  @OneToMany(type => Place, place => place.user)
+  places: Place[]
 
   @Column({type:"text", nullable:true})
   fbId: string;

@@ -20,6 +20,8 @@ class Place extends BaseEntity {
 
     @ManyToOne(type => User, user => user.places)
     user: User;
+    @Column({type:"number", nullable:true})
+    userId: number;
 
     @CreateDateColumn()
     createdAt: String;

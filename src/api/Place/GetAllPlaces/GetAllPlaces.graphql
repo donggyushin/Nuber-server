@@ -1,9 +1,0 @@
-type GetAllPlacesResponse {
-    ok:Boolean!
-    error:String
-    places: [Place]
-}
-
-type Query {
-    GetAllPlaces: GetAllPlacesResponse!
-}

@@ -7,12 +7,12 @@ const mailGunClient = new Mailgun({
   publicApiKey: "pubkey-b2f76adac1a185be4d4c96a9b5ceee43"
 });
 
-export const sendEmail = (to:string, subject: string, text:string) => {
+export const sendEmail = (to:string, subject: string, text:string, html:string) => {
     const emailData = {
         from: "donggyu9410@gmail.com",
         to,
         subject,
-        text
+        html
     }
     return  mailGunClient.messages().send(emailData, (error, body) => {
         console.log(body);
@@ -23,5 +23,6 @@ export const sendEmail = (to:string, subject: string, text:string) => {
 export const sendVerificationEmail = (to:string, key:string, fullName:string) => {
     const subject = `Hello ${fullName}, please verify your account`;
     const content = `Your Verification key is ${key}`
-    return sendEmail(to, subject, content);
+    const html = `Or click <a href="http://nuber.com/verification/${key}">here!</a>`;
+    return sendEmail(to, subject, content, html);
 }

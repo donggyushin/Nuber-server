@@ -22,6 +22,8 @@ const resolvers : Resolvers = {
                 })
 
                 if(checkedVerification){
+                    user.verifiedEmail = true;
+                    user.save();
                     return {
                         ok:true,
                         error:null

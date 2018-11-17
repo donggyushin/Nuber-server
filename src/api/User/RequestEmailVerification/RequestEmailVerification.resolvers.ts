@@ -2,12 +2,16 @@ import { Resolvers } from "src/types/resolvers";
 import { RequestEmailVerificationResonse } from "src/types/graph";
 import Verification from "../../../entities/Verification";
 import { sendVerificationEmail } from "../../../utils/sendEmail";
+import User from "../../../entities/User";
+
 
 
 const resolvers:Resolvers = {
   Mutation: {
     RequestEmailVerification: async (_,args,context):Promise<RequestEmailVerificationResonse> => {
-        const {user} = context.req;
+        
+        const user:User = context.req.user;
+        
         if(!user){
             return {
                 ok:false,
@@ -23,6 +27,12 @@ const resolvers:Resolvers = {
                     error: "You have no Email to verify"
                 }
             }else{
+                if(user.verifiedEmail){
+                    return {
+                        ok:true,
+                        error:"You are already verified"
+                    }
+                }
                 const existingEmailVerification = await Verification.findOne({
                     payload: user.email
                 })

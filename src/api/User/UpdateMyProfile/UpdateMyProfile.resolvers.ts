@@ -15,7 +15,8 @@ const resolvers : Resolvers = {
             valueToUpdate["lastName"] = lastName
         }
         if(password && password !== ""){
-            valueToUpdate["password"] = password
+            user.password = password;
+            user.save();
         }
         if(profilePhoto && profilePhoto !== ""){
             valueToUpdate["profilePhoto"] = profilePhoto
@@ -33,6 +34,7 @@ const resolvers : Resolvers = {
         }else {
             try{
                 await User.update({id:user.id}, valueToUpdate);
+                
                 return {
                     ok:true,
                     error:null

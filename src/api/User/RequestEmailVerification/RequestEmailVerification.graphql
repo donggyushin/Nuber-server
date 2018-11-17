@@ -1,0 +1,8 @@
+type RequestEmailVerificationResonse {
+    ok:Boolean!,
+    error: String
+}
+
+type Mutation {
+    RequestEmailVerification: RequestEmailVerificationResonse!
+}

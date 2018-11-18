@@ -8,6 +8,7 @@ const resolvers :Resolvers = {
         const user:User = context.req.user;
         const {lng, lat, orientation} = args;
         const valuesToUpdate = {};
+        const pubSub = context.pubSub;  //이번에 새로 추가한 부분
         if(lng){
             valuesToUpdate["lastLng"] = lng
         }
@@ -27,6 +28,7 @@ const resolvers :Resolvers = {
         try{
 
             await User.update({id:user.id}, valuesToUpdate);
+            pubSub.publish("driverUpdate", { DriversSubscription: user });    //이번에 새로 추가한 부분
             return {
                 ok:true,
                 error:null

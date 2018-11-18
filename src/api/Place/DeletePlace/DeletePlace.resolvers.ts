@@ -16,27 +16,40 @@ const resolvers : Resolvers = {
                 }
             }
 
-            const placeToDelete = await Place.findOne({id: placeId});
-            if(!placeToDelete){
+            try{
+
+                const placeToDelete = await Place.findOne({ id: placeId });
+                if (!placeToDelete) {
+                    return {
+                        ok: false,
+                        error: "Place not found"
+                    }
+                } else {
+                    check = user.id === placeToDelete.userId ? true : false;
+                    if (check) {
+                        await placeToDelete.remove();
+                        return {
+                            ok: true,
+                            error: null
+                        }
+                    } else {
+                        return {
+                            ok: false,
+                            error: "Not authorized"
+                        }
+                    }
+                }
+
+
+
+            }catch(error) {
                 return {
                     ok:false,
-                    error:"Place not found"
+                    error:error.message
                 }
-            }else {
-                check = user.id === placeToDelete.userId ? true : false;
-                if(check){
-                    await placeToDelete.remove();
-                    return {
-                        ok:true,
-                        error:null
-                    }
-                }else {
-                    return {
-                        ok:false,
-                        error:"Not authorized"
-                    }
-                }   
             }
+
+
         }
     }
 }

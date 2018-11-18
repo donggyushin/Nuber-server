@@ -35,9 +35,9 @@ class Ride extends BaseEntity {
     driver: User;
 
     @CreateDateColumn()
-    createdAt: String;
+    createdAt: string;
     @UpdateDateColumn()
-    updatedAt: String;
+    updatedAt: string;
 }
 
 export default Ride;

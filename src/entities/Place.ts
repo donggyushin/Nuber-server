@@ -24,9 +24,9 @@ class Place extends BaseEntity {
     userId: number;
 
     @CreateDateColumn()
-    createdAt: String;
+    createdAt: string;
     @UpdateDateColumn()
-    updatedAt: String;
+    updatedAt: string;
 }
 
 export default Place;

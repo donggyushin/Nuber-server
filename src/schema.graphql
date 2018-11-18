@@ -23,6 +23,7 @@ type Greeting {
 type Query {
   sayHello(name: String!): Greeting!
   GetMyPlaces: GetMyPlacesResponse!
+  GetNearbyDrivers: GetNearbyDriversResponse!
   GetMyProfile: GetMyProfileResponse!
 }
 
@@ -61,6 +62,12 @@ type GetMyPlacesResponse {
   ok: Boolean!
   error: String
   places: [Place]
+}
+
+type GetNearbyDriversResponse {
+  ok: Boolean!
+  error: String
+  drivers: [User]
 }
 
 type Place {

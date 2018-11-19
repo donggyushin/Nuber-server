@@ -28,7 +28,8 @@ const resolvers :Resolvers = {
         try{
 
             await User.update({id:user.id}, valuesToUpdate);
-            pubSub.publish("driverUpdate", { DriversSubscription: user });    //이번에 새로 추가한 부분
+            const updatedUser = await User.findOne({id:user.id});
+            pubSub.publish("driverUpdate", { DriversSubscription: updatedUser });    //이번에 새로 추가한 부분
             return {
                 ok:true,
                 error:null

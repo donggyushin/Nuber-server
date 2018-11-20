@@ -24,6 +24,7 @@ type Query {
   sayHello(name: String!): Greeting!
   GetMyPlaces: GetMyPlacesResponse!
   GetNearbyDrivers: GetNearbyDriversResponse!
+  GetNearbyRides: GetNearbyRidesResponse!
   GetMyProfile: GetMyProfileResponse!
 }
 
@@ -82,6 +83,12 @@ type Place {
   user: User!
   createdAt: String!
   updatedAt: String
+}
+
+type GetNearbyRidesResponse {
+  ok: Boolean!
+  error: String
+  rides: [Ride]
 }
 
 type RequestRideResponse {

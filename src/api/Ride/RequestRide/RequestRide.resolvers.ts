@@ -6,6 +6,7 @@ const resolvers :Resolvers = {
     Mutation: {
         RequestRide: async (_, args: RequestRideMutationArgs, context): Promise<RequestRideResponse> => {
             const user = context.req.user;
+            const pubsub = context.pubSub;
             if(!user) {
                 return {
                     ok:false,
@@ -14,7 +15,8 @@ const resolvers :Resolvers = {
                 }
             }
             try{
-                const ride: Ride = await Ride.create({ ...args, passenger: user });
+                const ride: Ride = await Ride.create({ ...args, passenger: user }).save();
+                pubsub.publish("rideRequest", {NearbyRideSubscription : ride});
                 return {
                     ok:true,
                     error: null,

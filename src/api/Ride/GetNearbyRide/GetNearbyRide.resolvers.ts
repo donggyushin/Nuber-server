@@ -1,18 +1,18 @@
 import { Resolvers } from "src/types/resolvers";
-import { GetNearbyRidesResponse } from "src/types/graph";
+import { GetNearbyRideResponse } from "src/types/graph";
 import User from "../../../entities/User";
 import Ride from "../../../entities/Ride";
 import { getRepository, Between } from "typeorm";
 
 const resolvers : Resolvers = {
     Query: {
-        GetNearbyRides: async (_, __, context) : Promise<GetNearbyRidesResponse> => {
+        GetNearbyRide: async (_, __, context) : Promise<GetNearbyRideResponse> => {
             const user : User = context.req.user;
             if(!user) {
                 return {
                     ok:false,
                     error:"You have to login",
-                    rides: null
+                    ride: null
                 }
             }
 
@@ -20,28 +20,38 @@ const resolvers : Resolvers = {
                 return {
                     ok:false,
                     error: "You are not driver",
-                    rides: null
+                    ride: null
                 }
             }
             const {lastLat, lastLng} = user;
 
             try{
-                const rides = await getRepository(Ride).find({
+                const ride = await getRepository(Ride).findOne({
                     status:"REQUESTING",
                     pickUpLat: Between(lastLat - 0.05, lastLat + 0.05),
                     pickUpLng: Between(lastLng - 0.05, lastLng + 0.05)
                 })
 
-                return {
-                    ok:true,
-                    error: null,
-                    rides
+                if(ride){
+                    return {
+                        ok: true,
+                        error: null,
+                        ride
+                    }    
+                }else {
+                    return {
+                        ok:false,
+                        error: "There is no ride request nearby",
+                        ride:null
+                    }
                 }
+
+                
             }catch(error) {
                 return {
                     ok:false,
                     error: error.message,
-                    rides:null
+                    ride:null
                 }
             }
         }

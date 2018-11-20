@@ -7,7 +7,7 @@ class Ride extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-@Column({type:"text"})
+    @Column({ type: "text", default:"ACCEPTED"})
     status: RideStatus;
 @Column({type:"text"})
     pickUpAddress: string;
@@ -31,7 +31,7 @@ class Ride extends BaseEntity {
     @ManyToOne(type => User, user => user.ridesAsPassenger)
     passenger: User;
 
-    @ManyToOne(type => User, user => user.ridesAsDriver)
+    @ManyToOne(type => User, user => user.ridesAsDriver, {nullable: true})
     driver: User;
 
     @CreateDateColumn()

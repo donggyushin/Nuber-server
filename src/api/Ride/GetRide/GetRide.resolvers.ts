@@ -19,6 +19,7 @@ const resolvers : Resolvers = {
             try{
                 const ride : Ride | undefined = await Ride.findOne({id:rideId}, {relations: ["passenger", "driver"]});
                 if(ride){
+                    
                     if(ride.passenger.id === user.id || ride.driver.id === user.id){
                         return {
                             ok:true,

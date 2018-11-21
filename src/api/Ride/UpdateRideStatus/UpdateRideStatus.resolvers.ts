@@ -8,6 +8,7 @@ const resolvers :Resolvers = {
         UpdateRideStatus: async (_, args:UpdateRideStatusMutationArgs, context) : Promise<UpdateRideStatusResponse> => {
             const user:User = context.req.user;
             const {rideId, status} = args;
+            const pubsub = context.pubSub;
             
             if(!user) {
                 return {
@@ -25,6 +26,7 @@ const resolvers :Resolvers = {
 
             try{
                 let ride : Ride | undefined;
+                
                 if(status === "ACCEPTED"){
                     ride = await Ride.findOne({ id: rideId, status:"REQUESTING" });
                     if(ride){
@@ -46,6 +48,8 @@ const resolvers :Resolvers = {
 
                 ride.status = status;
                 await ride.save();
+                const updatedRide = await Ride.findOne({ id: rideId }, { relations: ["driver", "passenger"] });
+                pubsub.publish("rideUpdate", {RideStatusSubscription: updatedRide});
                 return {
                     ok:true,
                     error:null

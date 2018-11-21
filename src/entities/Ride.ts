@@ -7,7 +7,7 @@ class Ride extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: "text", default:"ACCEPTED"})
+    @Column({ type: "text", default:"REQUESTING"})
     status: RideStatus;
 @Column({type:"text"})
     pickUpAddress: string;

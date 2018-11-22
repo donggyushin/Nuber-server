@@ -2,6 +2,7 @@ import { Resolvers } from "src/types/resolvers";
 import { UpdateRideStatusResponse, UpdateRideStatusMutationArgs } from "src/types/graph";
 import User from "../../../entities/User";
 import Ride from "../../../entities/Ride";
+import Chat from "src/entities/Chat";
 
 const resolvers :Resolvers = {
     Mutation : {
@@ -28,11 +29,15 @@ const resolvers :Resolvers = {
                 let ride : Ride | undefined;
                 
                 if(status === "ACCEPTED"){
-                    ride = await Ride.findOne({ id: rideId, status:"REQUESTING" });
+                    ride = await Ride.findOne({ id: rideId, status:"REQUESTING" }, {relations: ["passenger"]});
                     if(ride){
                         ride.driver = user;
                         user.isTaken = true;
                         user.save();
+                        await Chat.create({
+                            driver: user,
+                            passenger: ride.passenger
+                        }).save();
                     }
                 }else {
                     ride = await Ride.findOne({id: rideId, driver:user});

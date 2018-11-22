@@ -15,7 +15,7 @@ const resolvers :Resolvers = {
                     ride: null
                 }
             }
-            if(user.isRiding){
+            if(user.isRiding || user.isDriving){
                 return {
                     ok:false,
                     error: "You can't take two rides",

@@ -8,6 +8,7 @@ const resolvers : Resolvers = {
         GetRide: async (_, args:GetRideQueryArgs, context) : Promise<GetRideResponse> => {
             const user:User = context.req.user;
             const {rideId} = args;
+            
             if(!user) {
                 return {
                     ok:false,
@@ -17,7 +18,7 @@ const resolvers : Resolvers = {
             }
 
             try{
-                const ride : Ride | undefined = await Ride.findOne({id:rideId}, {relations: ["passenger", "driver"]});
+                const ride : Ride | undefined = await Ride.findOne({id:rideId}, {relations: ["passenger", "driver", "chat"]});
                 if(ride){
                     
                     if(ride.passenger.id === user.id || ride.driver.id === user.id){

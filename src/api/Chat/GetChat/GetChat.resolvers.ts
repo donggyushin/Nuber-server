@@ -18,7 +18,7 @@ const resolvers : Resolvers = {
 
 
             try{
-                const chat : Chat | undefined = await Chat.findOne({id:chatId});
+                const chat : Chat | undefined = await Chat.findOne({id:chatId}, {relations: ["messages"]});
                 if(chat){
                     if(chat.passengerId === user.id || chat.driverId === user.id){
                         return {

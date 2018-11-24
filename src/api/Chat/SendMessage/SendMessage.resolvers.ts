@@ -33,7 +33,7 @@ const resolvers: Resolvers = {
                         chat,
                         user
                     }).save();
-
+                    context.pubSub.publish("NewMessage", { MessageSubscription : message});
                     return {
                         ok:true,
                         error:null,

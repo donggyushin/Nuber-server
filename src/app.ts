@@ -17,7 +17,7 @@ class App{
             schema,
             context: (req) => {
                 const { connection: {context = null} = {}} = req;
-                
+                //req.connection.context.currentUser = user;
                 return {
                     req: req.request,
                     pubSub: this.pubSub,

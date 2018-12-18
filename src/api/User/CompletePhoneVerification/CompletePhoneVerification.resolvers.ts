@@ -41,6 +41,7 @@ const resolvers: Resolvers = {
             if(user){
                 user.verifiedPhoneNumber = true;
                 user.save();
+                
                 const token = createJWT(user.id);
                 return {
                     ok:true,

@@ -3,57 +3,58 @@ import { EditPlaceMutationArgs, EditPlaceResponse } from "src/types/graph";
 import User from "../../../entities/User";
 import Place from "../../../entities/Place";
 
-const resolvers : Resolvers = {
-    Mutation: {
-        EditPlace: async (_, args:EditPlaceMutationArgs, context) : Promise<EditPlaceResponse> => {
-            const user :User = context.req.user;
-            const {name, isFavorite, id} = args;
-            const valuesToUpdate = {}
-            if(name){
-                valuesToUpdate["name"] = name;
-            }
-            if(isFavorite){
-                valuesToUpdate["isFavorite"] = isFavorite;
-            }
+const resolvers: Resolvers = {
+  Mutation: {
+    EditPlace: async (
+      _,
+      args: EditPlaceMutationArgs,
+      context
+    ): Promise<EditPlaceResponse> => {
+      const user: User = context.req.user;
+      const { name, isFavorite, id } = args;
+      let valuesToUpdate = {};
 
+      if (name) {
+        valuesToUpdate["name"] = name;
+      }
 
-            if(!user) {
-                return {
-                    ok:false,
-                    error:"You have to login"
-                }
-            }
+      valuesToUpdate["isFavorite"] = isFavorite;
 
-            try{
-                const existingPlace = await Place.findOne({id});
-                if(!existingPlace){
-                    return {
-                        ok:false,
-                        error:"Place not found"
-                    }
-                }
-                if(user.id !== existingPlace.userId){
-                    return {
-                        ok:false,
-                        error:"No authorized"
-                    }
-                }
+      if (!user) {
+        return {
+          ok: false,
+          error: "You have to login"
+        };
+      }
 
-                await Place.update({id}, valuesToUpdate);
-                return {
-                    ok:true,
-                    error:null
-                }
-            }catch(error) {
-                return {
-                    ok:false,
-                    error: error.message
-                }
-            }
-
-            
+      try {
+        const existingPlace = await Place.findOne({ id });
+        if (!existingPlace) {
+          return {
+            ok: false,
+            error: "Place not found"
+          };
         }
+        if (user.id !== existingPlace.userId) {
+          return {
+            ok: false,
+            error: "No authorized"
+          };
+        }
+
+        await Place.update({ id }, valuesToUpdate);
+        return {
+          ok: true,
+          error: null
+        };
+      } catch (error) {
+        return {
+          ok: false,
+          error: error.message
+        };
+      }
     }
-}
+  }
+};
 
 export default resolvers;

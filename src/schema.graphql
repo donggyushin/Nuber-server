@@ -14,6 +14,13 @@ type Query {
   GetMyProfile: GetMyProfileResponse!
 }
 
+type Subscription {
+  MessageSubscription: Message
+  NearbyRideSubscription: Ride
+  RideStatusSubscription: Ride
+  DriversSubscription: User
+}
+
 type SendMessageResponse {
   ok: Boolean!
   error: String
@@ -56,6 +63,7 @@ type Message {
   id: Int!
   text: String!
   chat: Chat!
+  chatId: Int!
   user: User!
   createdAt: String!
   updatedAt: String
@@ -118,12 +126,6 @@ type GetRideResponse {
   ride: Ride
 }
 
-type Subscription {
-  NearbyRideSubscription: Ride
-  RideStatusSubscription: Ride
-  DriversSubscription: User
-}
-
 type RequestRideResponse {
   ok: Boolean!
   error: String
@@ -153,6 +155,7 @@ type Ride {
 type UpdateRideStatusResponse {
   ok: Boolean!
   error: String
+  id: Int
 }
 
 enum rideStatus {

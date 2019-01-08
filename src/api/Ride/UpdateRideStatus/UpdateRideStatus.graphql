@@ -1,16 +1,17 @@
 type UpdateRideStatusResponse {
-    ok:Boolean!
-    error:String
+  ok: Boolean!
+  error: String
+  id: Int
 }
 
 enum rideStatus {
-ACCEPTED
-FINISHED
-CANCLED
-REQUESTING
-ONROUTE
+  ACCEPTED
+  FINISHED
+  CANCLED
+  REQUESTING
+  ONROUTE
 }
 
 type Mutation {
-    UpdateRideStatus(rideId:Int!, status: rideStatus!) : UpdateRideStatusResponse!
+  UpdateRideStatus(rideId: Int!, status: rideStatus!): UpdateRideStatusResponse!
 }

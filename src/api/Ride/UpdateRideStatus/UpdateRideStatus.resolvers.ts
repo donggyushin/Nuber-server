@@ -40,7 +40,7 @@ const resolvers: Resolvers = {
         if (status === "ACCEPTED") {
           ride = await Ride.findOne(
             { id: rideId, status: "REQUESTING" },
-            { relations: ["passenger"] }
+            { relations: ["passenger", "driver"] }
           );
           if (ride) {
             ride.driver = user;
@@ -54,7 +54,10 @@ const resolvers: Resolvers = {
             ride.save();
           }
         } else {
-          ride = await Ride.findOne({ id: rideId, driver: user });
+          ride = await Ride.findOne(
+            { id: rideId, driver: user },
+            { relations: ["passenger", "driver"] }
+          );
         }
 
         if (!ride) {

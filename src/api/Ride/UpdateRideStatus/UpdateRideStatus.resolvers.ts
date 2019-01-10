@@ -70,6 +70,13 @@ const resolvers: Resolvers = {
 
         ride.status = status;
         await ride.save();
+        if (ride.status === "FINISHED") {
+          user.isTaken = false;
+          await user.save();
+          const passenger: User = ride.passenger;
+          passenger.isRiding = false;
+          await passenger.save();
+        }
         const updatedRide = await Ride.findOne(
           { id: rideId },
           { relations: ["driver", "passenger"] }

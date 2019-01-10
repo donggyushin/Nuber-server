@@ -22,7 +22,8 @@ const resolvers: Resolvers = {
         return {
           ok: false,
           error: "You have to login",
-          id: null
+          id: null,
+          chatId: null
         };
       }
 
@@ -30,7 +31,8 @@ const resolvers: Resolvers = {
         return {
           ok: false,
           error: "You are not a driver",
-          id: null
+          id: null,
+          chatId: null
         };
       }
 
@@ -64,7 +66,8 @@ const resolvers: Resolvers = {
           return {
             ok: false,
             error: "Can't update ride status",
-            id: null
+            id: null,
+            chatId: null
           };
         }
 
@@ -85,13 +88,15 @@ const resolvers: Resolvers = {
         return {
           ok: true,
           error: null,
-          id: rideId
+          id: rideId,
+          chatId: ride.chatId
         };
       } catch (error) {
         return {
           ok: false,
           error: error.message,
-          id: null
+          id: null,
+          chatId: null
         };
       }
     }
